@@ -1,18 +1,23 @@
-ZAN — Premium Sunshades
-A modern e-commerce skeleton for ZAN, a premium sunshade atelier. Dark-mode-first with glassmorphism, cinematic Hero, AppShell navigation, and an Express + SQLite (Drizzle ORM) backend.
+# ZAN — Premium Sunshades
 
-Stack
+A modern e-commerce skeleton for ZAN, a premium sunshade atelier. Dark-mode-first
+with glassmorphism, cinematic Hero, AppShell navigation, and an Express + SQLite
+(Drizzle ORM) backend.
 
-Runtime: Bun (used for both frontend tooling and backend)
-Frontend: React 18 + Vite
-UI: Mantine v7 (only) + @tabler/icons-react (only)
-State: Zustand (cart persisted to localStorage, auth, UI)
-Routing: React Router v6
-Backend: Express, served by Bun
-Database: SQLite via Bun's native bun:sqlite
-ORM: Drizzle ORM (drizzle-orm/bun-sqlite) + Drizzle Kit
-Project structure
+## Stack
 
+- **Runtime:** [Bun](https://bun.sh) (used for both frontend tooling and backend)
+- **Frontend:** React 18 + Vite
+- **UI:** Mantine v7 (only) + `@tabler/icons-react` (only)
+- **State:** Zustand (cart persisted to localStorage, auth, UI)
+- **Routing:** React Router v6
+- **Backend:** Express, served by Bun
+- **Database:** SQLite via Bun's native `bun:sqlite`
+- **ORM:** Drizzle ORM (`drizzle-orm/bun-sqlite`) + Drizzle Kit
+
+## Project structure
+
+```
 .
 ├── server/
 │   ├── db/
@@ -36,14 +41,21 @@ Project structure
 ├── drizzle.config.js
 ├── vite.config.js
 └── postcss.config.cjs
-Setup
+```
 
+## Setup
+
+```bash
 # 1. install dependencies
 bun install
-1. Run the Drizzle migrations to set up the SQLite DB
+```
 
-The SQLite file lives at server/db/zan.db. Generate migrations from the schema, then apply them:
+### 1. Run the Drizzle migrations to set up the SQLite DB
 
+The SQLite file lives at `server/db/zan.db`. Generate migrations from the
+schema, then apply them:
+
+```bash
 # generate the SQL migration files into server/db/migrations
 bun run db:generate
 
@@ -52,34 +64,51 @@ bun run db:migrate
 
 # (optional) seed the catalog with a few sample products
 bun run db:seed
-2. Start the backend server
+```
 
+### 2. Start the backend server
+
+```bash
 bun run server
 # → ZAN API ready on http://localhost:4000
-Endpoints:
+```
 
-GET / — service banner
-GET /api/health
-GET /api/products
-GET /api/products/:id
-POST /api/orders
-Note: hitting http://localhost:4000/ directly returns the service banner. The actual storefront is served by Vite at http://localhost:5173.
-3. Start the frontend dev environment
+Endpoints:
+- `GET  /`               — service banner
+- `GET  /api/health`
+- `GET  /api/products`
+- `GET  /api/products/:id`
+- `POST /api/orders`
+
+> Note: hitting `http://localhost:4000/` directly returns the service banner.
+> The actual storefront is served by Vite at `http://localhost:5173`.
+
+### 3. Start the frontend dev environment
 
 In a second terminal:
 
+```bash
 bun run dev
 # → http://localhost:5173
-The Vite dev server proxies /api/* to http://localhost:4000, so you can run both side-by-side. If the API is offline, the storefront still renders using the local fallback catalog in src/data/products.js.
+```
 
-Notes
+The Vite dev server proxies `/api/*` to `http://localhost:4000`, so you can run
+both side-by-side. If the API is offline, the storefront still renders using
+the local fallback catalog in `src/data/products.js`.
 
-Dark mode is forced at the Mantine provider level — the entire experience is designed dark-first.
-The cart is persisted to localStorage under the zan-cart key.
-Glassmorphism utilities (.zan-glass, .zan-glass-strong, .zan-gold-text) live in src/theme/global.css.
-Only Mantine components and @tabler/icons-react icons are used in the UI.
-Roadmap
+## Notes
 
-Admin dashboard (deliberately not built yet — the brief is to polish the customer-facing GUI first).
-Auth backend (currently stub: AuthModal writes to the useAuth Zustand store; wire to /api/auth/* next).
-Checkout flow + Stripe.
+- Dark mode is forced at the Mantine provider level — the entire experience is
+  designed dark-first.
+- The cart is persisted to `localStorage` under the `zan-cart` key.
+- Glassmorphism utilities (`.zan-glass`, `.zan-glass-strong`, `.zan-gold-text`)
+  live in `src/theme/global.css`.
+- Only Mantine components and `@tabler/icons-react` icons are used in the UI.
+
+## Roadmap
+
+- Admin dashboard (deliberately not built yet — the brief is to polish the
+  customer-facing GUI first).
+- Auth backend (currently stub: `AuthModal` writes to the `useAuth` Zustand
+  store; wire to `/api/auth/*` next).
+- Checkout flow + Stripe.
